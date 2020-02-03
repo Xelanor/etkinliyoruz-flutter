@@ -90,29 +90,29 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: _isLoading
           ? Center(
-              child: CircularProgressIndicator(),
-            )
+              child: CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
           : _events.length == 0
-              ? Container(
-                  margin: EdgeInsets.symmetric(vertical: 200),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        'Aradığınız kriterlere uygun etkinlik bulunamadı...',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Aradığınız kriterlere uygun etkinlik bulunamadı...',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 15),
-                      Icon(
-                        Icons.error_outline,
-                        size: 60,
-                        color: Theme.of(context).primaryColor,
-                      )
-                    ],
-                  ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 15),
+                    Icon(
+                      Icons.error_outline,
+                      size: 60,
+                      color: Theme.of(context).primaryColor,
+                    )
+                  ],
                 )
               : Padding(
                   padding: EdgeInsets.all(8),

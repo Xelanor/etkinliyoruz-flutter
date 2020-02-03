@@ -79,8 +79,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return _isLoading
         ? Center(
-            child: CircularProgressIndicator(),
-          )
+            child: CircularProgressIndicator(
+                valueColor:
+                    AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
         : _events.length == 0
             ? Container(
                 margin: EdgeInsets.symmetric(vertical: 200),

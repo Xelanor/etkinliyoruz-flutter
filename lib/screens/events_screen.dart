@@ -41,14 +41,15 @@ class _EventsScreenState extends State<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
+    return _isLoading
+        ? Center(
+            child: CircularProgressIndicator(
+                valueColor:
+                    AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
+        : SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
                 children: <Widget>[
                   EventsCategoryTitle(
                     'Yaklaşan Etkinlikler',
@@ -72,7 +73,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   EventsLine(_events[3]), // Movie events line
                 ],
               ),
-      ),
-    );
+            ),
+          );
   }
 }
