@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/events.dart';
 import '../helpers/db_helper.dart';
+import '../presentation/money_icons_icons.dart' show MoneyIcons;
 
 class EventDetailScreen extends StatefulWidget {
   final Map event;
@@ -35,7 +36,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       setState(() {
         _isLoading = true;
       });
-      print(widget.event['_id']);
       DBHelper.getFavoriteDataById('user_favorites', widget.event['_id']).then(
         (events) {
           if (events.length == 0) {
@@ -71,31 +71,34 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.event['name']),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
-        onPressed: () async {
-          DBHelper.insert('user_favorites', {
-            '_id': widget.event['_id'],
-            'name': widget.event['name'],
-            'description': widget.event['description'],
-            'category': widget.event['category'],
-            'date': widget.event['date'],
-            'image': widget.event['image'],
-            'eventAge': widget.event['eventAge'],
-            'eventPrice': widget.event['eventPrice'],
-            'eventLink': widget.event['eventLink'],
-            'location': widget.event['location'],
-            'place': widget.event['place'],
-            'latitude': widget.event['latitude'],
-            'longitude': widget.event['longitude'],
-            'isFavorite': _isFavorite ? 0 : 1,
-          });
-          setState(() {
-            _isFavorite ? _isFavorite = false : _isFavorite = true;
-          });
-        },
+        actions: <Widget>[
+          IconButton(
+            icon: _isFavorite
+                ? Icon(Icons.favorite)
+                : Icon(Icons.favorite_border),
+            onPressed: () async {
+              DBHelper.insert('user_favorites', {
+                '_id': widget.event['_id'],
+                'name': widget.event['name'],
+                'description': widget.event['description'],
+                'category': widget.event['category'],
+                'date': widget.event['date'],
+                'image': widget.event['image'],
+                'eventAge': widget.event['eventAge'],
+                'eventPrice': widget.event['eventPrice'],
+                'eventLink': widget.event['eventLink'],
+                'location': widget.event['location'],
+                'place': widget.event['place'],
+                'latitude': widget.event['latitude'],
+                'longitude': widget.event['longitude'],
+                'isFavorite': _isFavorite ? 0 : 1,
+              });
+              setState(() {
+                _isFavorite ? _isFavorite = false : _isFavorite = true;
+              });
+            },
+          )
+        ],
       ),
       body: _isLoading
           ? Center(
@@ -137,7 +140,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               color: Theme.of(context).primaryColor,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(DateFormat.yMMMMd()
+                            Text(DateFormat('dd.MM.yyyy')
                                 .format(date(widget.event['date']))),
                           ],
                         ),
@@ -146,7 +149,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
-                              Icons.attach_money,
+                              MoneyIcons.money_1,
                               color: Theme.of(context).primaryColor,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
@@ -194,6 +197,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   ),
                   Container(
                     height: 200,
+                    padding: EdgeInsets.only(bottom: 8, left: 8, right: 8),
                     child: GoogleMap(
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(

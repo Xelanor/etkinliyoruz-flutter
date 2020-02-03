@@ -3,11 +3,13 @@ import 'package:intl/intl.dart';
 
 import '../../screens/event_detail_screen.dart';
 import '../../providers/event.dart';
+import '../../presentation/money_icons_icons.dart';
 
 class SearchCard extends StatelessWidget {
   final Map event;
+  final Function refreshScreen;
 
-  SearchCard(this.event);
+  SearchCard(this.event, this.refreshScreen);
 
   DateTime get date {
     return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(event['date']);
@@ -17,11 +19,13 @@ class SearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => EventDetailScreen(event),
-          ),
-        );
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(
+                builder: (context) => EventDetailScreen(event),
+              ),
+            )
+            .whenComplete(refreshScreen);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
@@ -102,7 +106,7 @@ class SearchCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
-                              Icons.attach_money,
+                              MoneyIcons.money_1,
                               color: Theme.of(context).primaryColor,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),

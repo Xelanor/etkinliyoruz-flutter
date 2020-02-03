@@ -47,24 +47,29 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
   }
 
+  void retreiveFavorites() {
+    setState(() {
+      _isLoading = true;
+      _markers.clear();
+    });
+    DBHelper.getFavorites('user_favorites').then(
+      (events) {
+        events.forEach((event) =>
+            _addMarker(event['latitude'], event['longitude'], event['place']));
+        setState(
+          () {
+            _isLoading = false;
+            _events = events;
+          },
+        );
+      },
+    );
+  }
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      DBHelper.getFavorites('user_favorites').then(
-        (events) {
-          events.forEach((event) => _addMarker(
-              event['latitude'], event['longitude'], event['place']));
-          setState(
-            () {
-              _isLoading = false;
-              _events = events;
-            },
-          );
-        },
-      );
+      retreiveFavorites();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -123,7 +128,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         itemBuilder: (_, i) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SearchCard(_events[i]),
+                            SearchCard(_events[i], retreiveFavorites),
                           ],
                         ),
                       ),

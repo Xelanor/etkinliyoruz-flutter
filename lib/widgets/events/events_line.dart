@@ -11,7 +11,7 @@ class EventsLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 5, bottom: 5),
-      height: 240.0,
+      height: 235.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: events.length,

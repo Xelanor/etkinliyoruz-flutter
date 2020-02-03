@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../screens/event_detail_screen.dart';
+import '../../presentation/money_icons_icons.dart';
 
 class EventCard extends StatelessWidget {
   final Map event;
 
   EventCard(this.event);
+
+  DateTime date(date) {
+    return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +69,8 @@ class EventCard extends StatelessWidget {
                           Padding(padding: EdgeInsets.only(left: 5.0)),
                           Expanded(
                             child: Text(
-                              '07.12.2019 - 16005165165',
-                              // 'DateFormat.yMMMMd().format(date)',
+                              DateFormat('dd.MM.yyyy')
+                                  .format(date(event['date'])),
                               style: TextStyle(fontSize: 10),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -111,7 +117,7 @@ class EventCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Icon(
-                            Icons.attach_money,
+                            MoneyIcons.money_1,
                             color: Theme.of(context).primaryColor,
                             size: 10,
                           ),

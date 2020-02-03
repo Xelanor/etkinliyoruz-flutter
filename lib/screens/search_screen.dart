@@ -47,26 +47,30 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
+  void searchEvents() {
+    setState(() {
+      _isLoading = true;
+    });
+    Provider.of<Events>(context, listen: false)
+        .searchEvents(widget.searchQuery, widget.searchType)
+        .then(
+      (events) {
+        events.forEach((event) =>
+            _addMarker(event['latitude'], event['longitude'], event['place']));
+        setState(
+          () {
+            _events = events;
+            _isLoading = false;
+          },
+        );
+      },
+    );
+  }
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<Events>(context, listen: false)
-          .searchEvents(widget.searchQuery, widget.searchType)
-          .then(
-        (events) {
-          events.forEach((event) => _addMarker(
-              event['latitude'], event['longitude'], event['place']));
-          setState(
-            () {
-              _events = events;
-              _isLoading = false;
-            },
-          );
-        },
-      );
+      searchEvents();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -135,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           itemBuilder: (_, i) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SearchCard(_events[i]),
+                              SearchCard(_events[i], searchEvents),
                             ],
                           ),
                         ),
