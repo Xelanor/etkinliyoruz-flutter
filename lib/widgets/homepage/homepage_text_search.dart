@@ -12,7 +12,7 @@ class HomepageTextSearch extends StatefulWidget {
 }
 
 class _HomepageTextSearchState extends State<HomepageTextSearch> {
-  String searchTextInput;
+  final searchTextInputContoller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +25,29 @@ class _HomepageTextSearchState extends State<HomepageTextSearch> {
           child: Container(
             child: TextField(
               autofocus: false,
-              onChanged: (value) => searchTextInput = value,
+              controller: searchTextInputContoller,
               decoration: InputDecoration(
                 prefixIcon: Container(
                   child: Icon(
                     Icons.search,
                     color: Theme.of(context).primaryColor,
+                    size: 25,
                   ),
                 ),
                 suffixIcon: InkWell(
                   onTap: () {
-                    if (searchTextInput != null && searchTextInput != '') {
-                      Navigator.of(context).pushNamed(SearchScreen.routeName,
-                          arguments: searchTextInput);
+                    if (searchTextInputContoller.text != null &&
+                        searchTextInputContoller.text != '') {
+                      var searchText = searchTextInputContoller.text;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SearchScreen(searchText, 'text'),
+                        ),
+                      );
+                      setState(() {
+                        searchTextInputContoller.text = "";
+                      });
                     }
                   },
                   child: Container(

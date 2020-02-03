@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,10 +8,17 @@ import './screens/events_screen.dart';
 import './screens/favorites_screen.dart';
 import './screens/settings_screen.dart';
 import './screens/search_screen.dart';
+import './screens/event_detail_screen.dart';
 
 import './providers/events.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -34,7 +42,6 @@ class MyApp extends StatelessWidget {
           EventsScreen.routeName: (ctx) => EventsScreen(),
           FavoritesScreen.routeName: (ctx) => FavoritesScreen(),
           SettingsScreen.routeName: (ctx) => SettingsScreen(),
-          SearchScreen.routeName: (ctx) => SearchScreen(),
         },
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,8 +40,8 @@ class Events with ChangeNotifier {
       location:
           "Bayar Cd. Buket Sk. No:14 34742 Kozyatağı, İstanbulKadıköy, İstanbul Anadolu",
       place: "Kozzy AVM",
-      latitude: "40.969206500",
-      longitude: "29.091638000",
+      latitude: "40.976152",
+      longitude: "29.129036",
     ),
   ];
 
@@ -54,9 +56,50 @@ class Events with ChangeNotifier {
     return _events.firstWhere((event) => event.id == id);
   }
 
-  List<Event> searchByText(String text) {
-    return _events
-        .where((event) => event.name.toLowerCase().contains(text.toLowerCase()))
-        .toList();
+  Future<List> searchEvents(String text, String type) async {
+    const textSearchUrl = 'http://34.67.211.44/api/search/text';
+    const categorySearchUrl = 'http://34.67.211.44/api/search/category';
+    var url;
+    if (type == "text") {
+      url = textSearchUrl;
+    }
+    if (type == "category") {
+      url = categorySearchUrl;
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        body: {'searchString': text},
+      );
+      final extractedData = json.decode(response.body) as List<dynamic>;
+      return extractedData;
+    } catch (error) {
+      print("Error");
+      throw (error);
+    }
   }
+
+  Future<List> fetchEventsScreen() async {
+    const url = 'http://34.67.211.44/api/events/multiple';
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as List<dynamic>;
+      return extractedData;
+    } catch (error) {
+      print("Error");
+      throw (error);
+    }
+    // final extractedData = json.decode(res.body) as List;
+    // _events = extractedData;
+    // print(extractedData);
+    // notifyListeners();
+    // return extractedData;
+  }
+
+  // List<Event> searchByText(String text) {
+  //   return _events
+  //       .where((event) => event.name.toLowerCase().contains(text.toLowerCase()))
+  //       .toList();
+  // }
 }
