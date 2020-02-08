@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/events.dart';
 import '../helpers/db_helper.dart';
 import '../presentation/money_icons_icons.dart' show MoneyIcons;
 
@@ -106,11 +101,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   valueColor:
                       AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
           : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    height: 200,
+                    height: MediaQuery.of(context).size.height / 3.4,
                     width: double.infinity,
                     child: Image.network(
                       widget.event['image'],

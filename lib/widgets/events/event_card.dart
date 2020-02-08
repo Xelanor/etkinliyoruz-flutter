@@ -38,6 +38,7 @@ class EventCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       height: 100,
+                      width: 100,
                       child: Image.network(
                         event['image'],
                         fit: BoxFit.fill,
@@ -53,7 +54,7 @@ class EventCard extends StatelessWidget {
                       Text(
                         event['name'],
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,

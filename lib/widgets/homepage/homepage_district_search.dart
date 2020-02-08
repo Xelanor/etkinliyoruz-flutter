@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/search_screen.dart';
-
 class HomepageDistrictSearch extends StatefulWidget {
   final double vertical;
 

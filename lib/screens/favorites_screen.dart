@@ -5,6 +5,7 @@ import 'dart:async';
 
 import '../helpers/db_helper.dart';
 import '../widgets/search/search_card.dart';
+import '../widgets/utils/error_page.dart';
 
 class FavoritesScreen extends StatefulWidget {
   static const routeName = '/favorites-screen';
@@ -83,27 +84,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 valueColor:
                     AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
         : _events.length == 0
-            ? Container(
-                margin: EdgeInsets.symmetric(vertical: 200),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Henüz Favorilerinize kaydettiğiniz bir etkinlik bulunmamaktadır...',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 15),
-                    Icon(
-                      Icons.error_outline,
-                      size: 60,
-                      color: Theme.of(context).primaryColor,
-                    )
-                  ],
-                ),
-              )
+            ? ErrorPage(
+                "Henüz Favorilerinize kaydettiğiniz bir etkinlik bulunmamaktadır...")
             : Padding(
                 padding: EdgeInsets.all(8),
                 child: Column(
@@ -125,6 +107,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                     Expanded(
                       child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
                         itemCount: _events.length,
                         itemBuilder: (_, i) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

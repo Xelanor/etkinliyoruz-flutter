@@ -7,8 +7,6 @@ import './screens/homepage_screen.dart';
 import './screens/events_screen.dart';
 import './screens/favorites_screen.dart';
 import './screens/settings_screen.dart';
-import './screens/search_screen.dart';
-import './screens/event_detail_screen.dart';
 
 import './providers/events.dart';
 

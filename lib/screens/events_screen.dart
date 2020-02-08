@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../providers/events.dart';
 import '../widgets/events/events_category_title.dart';
-import '../widgets/events/event_card.dart';
 import '../widgets/events/events_line.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -47,6 +46,7 @@ class _EventsScreenState extends State<EventsScreen> {
                 valueColor:
                     AlwaysStoppedAnimation(Theme.of(context).primaryColor)))
         : SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Container(
               padding: EdgeInsets.all(10),
               child: Column(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../screens/event_detail_screen.dart';
-import '../../providers/event.dart';
 import '../../presentation/money_icons_icons.dart';
 
 class SearchCard extends StatelessWidget {
@@ -19,18 +18,17 @@ class SearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(
-              MaterialPageRoute(
-                builder: (context) => EventDetailScreen(event),
-              ),
-            )
-            .whenComplete(refreshScreen);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => EventDetailScreen(event),
+          ),
+        );
+        // .whenComplete(refreshScreen);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Container(
-          height: 155,
+          height: MediaQuery.of(context).size.height / 3.8,
           width: double.infinity,
           child: Card(
             color: Colors.white,
@@ -41,29 +39,30 @@ class SearchCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Container(
-                      width: 140,
-                      height: double.infinity,
+                      width: MediaQuery.of(context).size.height / 4.4,
+                      height: MediaQuery.of(context).size.height / 4.4,
                       child: Image.network(
                         event['image'],
                         fit: BoxFit.fill,
                       ),
                     ),
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: MediaQuery.of(context).size.width / 34),
                   Container(
-                    width: MediaQuery.of(context).size.width - 190,
+                    width: MediaQuery.of(context).size.width -
+                        MediaQuery.of(context).size.height / 4.4 -
+                        50,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            event['name'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                        Text(
+                          event['name'],
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.width / 100 * 3.4,
+                            fontWeight: FontWeight.bold,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 5),
                         Row(
@@ -72,54 +71,114 @@ class SearchCard extends StatelessWidget {
                             Icon(
                               Icons.calendar_today,
                               color: Theme.of(context).primaryColor,
+                              size:
+                                  MediaQuery.of(context).size.width / 100 * 5.8,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(DateFormat.yMMMMd().format(date)),
+                            Flexible(
+                              child: Text(
+                                DateFormat.yMMMMd().format(date),
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.width /
+                                      100 *
+                                      3.2,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width / 100),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
                               Icons.location_on,
                               color: Theme.of(context).primaryColor,
+                              size:
+                                  MediaQuery.of(context).size.width / 100 * 5.8,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            FittedBox(child: Text(event['place'])),
+                            Flexible(
+                              child: Text(
+                                event['place'],
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.width /
+                                      100 *
+                                      3.2,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width / 100),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
                               Icons.local_activity,
                               color: Theme.of(context).primaryColor,
+                              size:
+                                  MediaQuery.of(context).size.width / 100 * 5.8,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(event['category']),
+                            Text(
+                              event['category'],
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width /
+                                    100 *
+                                    3.2,
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width / 100),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Icon(
                               MoneyIcons.money_1,
                               color: Theme.of(context).primaryColor,
+                              size:
+                                  MediaQuery.of(context).size.width / 100 * 5.8,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(event['eventPrice']),
-                            Padding(padding: EdgeInsets.only(left: 25.0)),
+                            Text(
+                              event['eventPrice'],
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width /
+                                    100 *
+                                    3.2,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width / 100),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
                             Icon(
                               Icons.people,
                               color: Theme.of(context).primaryColor,
+                              size:
+                                  MediaQuery.of(context).size.width / 100 * 5.8,
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(event['eventAge']),
+                            Text(
+                              event['eventAge'],
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width /
+                                    100 *
+                                    3.2,
+                              ),
+                            ),
                           ],
-                        ),
+                        )
                       ],
                     ),
                   ),
