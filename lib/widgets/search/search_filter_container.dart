@@ -5,16 +5,16 @@ import './search_dropdown_menu.dart';
 class SearchFilterContainer extends StatelessWidget {
   final Function filterAndSetDropdown;
 
-  final List<String> placeList;
-  final String placeValue;
+  final List<String> townList;
+  final String townValue;
 
   final List<String> categoryList;
   final String categoryValue;
 
   SearchFilterContainer(
     this.filterAndSetDropdown,
-    this.placeList,
-    this.placeValue,
+    this.townList,
+    this.townValue,
     this.categoryList,
     this.categoryValue,
   );
@@ -25,10 +25,10 @@ class SearchFilterContainer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         SearchDropdownMenu(
-          "Bir mekan seçiniz...",
-          "place",
-          placeList,
-          placeValue,
+          "Bir ilçe seçiniz...",
+          "town",
+          townList,
+          townValue,
           filterAndSetDropdown,
         ),
         SearchDropdownMenu(

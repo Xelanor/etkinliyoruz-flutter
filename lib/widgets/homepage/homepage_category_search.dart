@@ -52,15 +52,15 @@ class _HomepageCategorySearchState extends State<HomepageCategorySearch> {
                     );
                   },
                   hint: Text('Kategori seçin...'),
-                  items: <String>[
-                    'Atölye & Eğitim',
-                    'Tiyatro & Film',
-                    'AVM Etkinlikleri',
-                    'Müzikal & Konser'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                  items: <Map>[
+                    {"text": 'Atölye & Eğitim', "value": "Atölye"},
+                    {"text": 'Tiyatro & Film', "value": "Tiyatro"},
+                    {"text": 'AVM Etkinlikleri', "value": "Eğlence Merkezi"},
+                    {"text": 'Müzikal & Konser', "value": "Müzikal/Gösteri"}
+                  ].map<DropdownMenuItem<String>>((Map item) {
+                    return DropdownMenuItem(
+                      value: item['value'],
+                      child: Text(item['text']),
                     );
                   }).toList(),
                 ),

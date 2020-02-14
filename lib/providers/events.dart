@@ -59,12 +59,16 @@ class Events with ChangeNotifier {
   Future<List> searchEvents(String text, String type) async {
     const textSearchUrl = 'http://34.67.211.44/api/search/text';
     const categorySearchUrl = 'http://34.67.211.44/api/search/category';
+    const townSearchUrl = 'http://34.67.211.44/api/search/town';
     var url;
     if (type == "text") {
       url = textSearchUrl;
     }
     if (type == "category") {
       url = categorySearchUrl;
+    }
+    if (type == "town") {
+      url = townSearchUrl;
     }
 
     try {

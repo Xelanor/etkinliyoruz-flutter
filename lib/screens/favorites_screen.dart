@@ -55,12 +55,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     });
     DBHelper.getFavorites('user_favorites').then(
       (events) {
-        events.forEach((event) =>
-            _addMarker(event['latitude'], event['longitude'], event['place']));
+        events.forEach((event) {
+          if (date(event['date']).isAfter(DateTime.now())) {
+            _addMarker(event['latitude'], event['longitude'], event['place']);
+            _events.add(event);
+          }
+        });
         setState(
           () {
             _isLoading = false;
-            _events = events;
+            _events = _events;
           },
         );
       },

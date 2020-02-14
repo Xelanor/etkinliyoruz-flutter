@@ -29,9 +29,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Set<Marker> _markers = {};
 
-  List<String> _places = [];
+  List<String> _towns = [];
   List<String> _categories = [];
-  String _placeValue;
+  String _townValue;
   String _categoryValue;
 
   Completer<GoogleMapController> _controller = Completer();
@@ -59,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {
       _filter[filterType] = value;
       _categoryValue = _filter['category'] == "" ? null : _filter['category'];
-      _placeValue = _filter['place'] == "" ? null : _filter['place'];
+      _townValue = _filter['town'] == "" ? null : _filter['town'];
       _filteredEvents = __filteredEvents;
       _markers = _markers;
     });
@@ -90,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
         events.forEach((event) {
           _markers.add(_addMarker(
               event['latitude'], event['longitude'], event['place']));
-          _places.add(event['place']);
+          _towns.add(event['town']);
           _categories.add(event['category']);
         });
         setState(
@@ -99,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
             _filteredEvents = events;
             _isLoading = false;
             _markers = _markers;
-            _places = _places.toSet().toList();
+            _towns = _towns.toSet().toList();
             _categories = _categories.toSet().toList();
           },
         );
@@ -148,8 +148,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   SearchFilterContainer(
                     filterAndSetDropdown,
-                    _places,
-                    _placeValue,
+                    _towns,
+                    _townValue,
                     _categories,
                     _categoryValue,
                   ),

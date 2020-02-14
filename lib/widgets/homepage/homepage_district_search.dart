@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../screens/search_screen.dart';
+
 class HomepageDistrictSearch extends StatefulWidget {
   final double vertical;
 
@@ -41,21 +43,33 @@ class _HomepageDistrictSearchState extends State<HomepageDistrictSearch> {
                   underline: Container(height: 0),
                   isExpanded: true,
                   isDense: true,
-                  // onChanged: (String newValue) {
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) =>
-                  //           SearchScreen(newValue, 'category'),
-                  //     ),
-                  //   );
-                  // },
-                  onChanged: null,
-                  hint: Text('İlçe Seçin... (Yakında)'),
+                  onChanged: (String newValue) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SearchScreen(newValue, 'town'),
+                      ),
+                    );
+                  },
+                  hint: Text('İlçe Seçin...'),
                   items: <String>[
-                    'Atölye & Eğitim',
-                    'Tiyatro & Film',
-                    'AVM Etkinlikleri',
-                    'Müzikal & Konser'
+                    'Ataşehir',
+                    'Bahçelievler',
+                    'Bakırköy',
+                    'Başakşehir',
+                    'Beyoğlu',
+                    'Beşiktaş',
+                    'Esenyurt',
+                    'Kadıköy',
+                    'Konak',
+                    'Maltepe',
+                    'Nilüfer',
+                    'Sancaktepe',
+                    'Sarıyer',
+                    'Yenimahalle',
+                    'Çankaya',
+                    'Üsküdar',
+                    'İnegöl',
+                    'Şişli',
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,

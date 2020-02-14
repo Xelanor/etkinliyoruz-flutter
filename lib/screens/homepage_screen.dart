@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../widgets/homepage/homepage_card.dart';
 import '../widgets/homepage/homepage_text_search.dart';
 import '../widgets/homepage/homepage_category_search.dart';
 import '../widgets/homepage/homepage_district_search.dart';
 
-class HomepageScreen extends StatelessWidget {
+class HomepageScreen extends StatefulWidget {
   static const routeName = '/homepage-screen';
+
+  @override
+  _HomepageScreenState createState() => _HomepageScreenState();
+}
+
+class _HomepageScreenState extends State<HomepageScreen> {
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    await OneSignal.shared.init("cd24a945-b519-4bef-81b8-6262ce6c4f24",
+        iOSSettings: {
+          OSiOSSettings.autoPrompt: false,
+          OSiOSSettings.inAppLaunchUrl: true
+        });
+
+    OneSignal.shared
+        .setInFocusDisplayType(OSNotificationDisplayType.notification);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,21 +72,25 @@ class HomepageScreen extends StatelessWidget {
                     'assets/education-logo.png',
                     'Atölye & Eğitim',
                     '17 Etkinlik',
+                    'Atölye',
                   ),
                   HomepageCard(
                     'assets/movie-logo.png',
                     'Tiyatro & Film',
                     '26 Etkinlik',
+                    'Tiyatro',
                   ),
                   HomepageCard(
                     'assets/avm-logo.png',
                     'AVM Etkinlikleri',
                     '12 Etkinlik',
+                    'Eğlence Merkezi',
                   ),
                   HomepageCard(
                     'assets/concert-logo.png',
                     'Konser & Müzikal',
                     '9 Etkinlik',
+                    'Müzikal/Gösteri',
                   )
                 ],
               )

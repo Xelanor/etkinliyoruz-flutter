@@ -6,8 +6,9 @@ class HomepageCard extends StatelessWidget {
   final String logo;
   final String title;
   final String subtitle;
+  final String searchQuery;
 
-  HomepageCard(this.logo, this.title, this.subtitle);
+  HomepageCard(this.logo, this.title, this.subtitle, this.searchQuery);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class HomepageCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => SearchScreen(title, 'category'),
+              builder: (context) => SearchScreen(searchQuery, 'category'),
             ),
           );
         },
