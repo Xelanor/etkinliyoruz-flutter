@@ -57,6 +57,7 @@ class Events with ChangeNotifier {
   }
 
   Future<List> searchEvents(String text, String type) async {
+    const allSearchUrl = 'http://34.67.211.44/api/';
     const textSearchUrl = 'http://34.67.211.44/api/search/text';
     const categorySearchUrl = 'http://34.67.211.44/api/search/category';
     const townSearchUrl = 'http://34.67.211.44/api/search/town';
@@ -69,6 +70,12 @@ class Events with ChangeNotifier {
     }
     if (type == "town") {
       url = townSearchUrl;
+    }
+    if (text == "Bütün Etkinlikler") {
+      url = allSearchUrl;
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as List<dynamic>;
+      return extractedData;
     }
 
     try {

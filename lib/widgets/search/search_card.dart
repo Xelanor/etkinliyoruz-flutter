@@ -77,7 +77,7 @@ class SearchCard extends StatelessWidget {
                             Padding(padding: EdgeInsets.only(left: 10.0)),
                             Flexible(
                               child: Text(
-                                DateFormat.yMMMMd().format(date),
+                                DateFormat('dd.MM.yyyy').add_Hm().format(date),
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.width /
                                       100 *

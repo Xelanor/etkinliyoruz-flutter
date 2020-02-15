@@ -138,6 +138,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                             ),
                             Padding(padding: EdgeInsets.only(left: 10.0)),
                             Text(DateFormat('dd.MM.yyyy')
+                                .add_Hm()
                                 .format(date(widget.event['date']))),
                           ],
                         ),

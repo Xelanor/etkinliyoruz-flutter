@@ -61,6 +61,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             _events.add(event);
           }
         });
+        _events.sort((m1, m2) {
+          var r = date(m1["date"]).compareTo(date(m2["date"]));
+          if (r != 0) return r;
+        });
         setState(
           () {
             _isLoading = false;

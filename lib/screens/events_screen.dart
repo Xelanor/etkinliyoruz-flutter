@@ -55,22 +55,30 @@ class _EventsScreenState extends State<EventsScreen> {
                     'Yaklaşan Etkinlikler',
                     Icons.calendar_today,
                   ),
-                  EventsLine(_events[0]), // Upcoming events line
+                  EventsLine(
+                      'Bütün Etkinlikler', _events[0]), // Upcoming events line
                   EventsCategoryTitle(
                     'Atölye & Eğitim',
                     'assets/education-logo.png',
                   ),
-                  EventsLine(_events[1]), // Education events line
+                  EventsLine('Atölye', _events[1]), // Education events line
                   EventsCategoryTitle(
                     'Tiyatro & Film',
                     'assets/movie-logo.png',
                   ),
-                  EventsLine(_events[2]), // Movie events line
+                  EventsLine('Tiyatro', _events[2]), // Movie events line
+                  EventsCategoryTitle(
+                    'AVM Etkinlikleri',
+                    'assets/concert-logo.png',
+                  ),
+                  EventsLine(
+                      'Eğlence Merkezi', _events[3]), // Movie events line
                   EventsCategoryTitle(
                     'Konser & Müzikal',
                     'assets/concert-logo.png',
                   ),
-                  EventsLine(_events[3]), // Movie events line
+                  EventsLine(
+                      'Müzikal/Gösteri', _events[4]), // Movie events line
                 ],
               ),
             ),

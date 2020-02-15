@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Marker _addMarker(String ltd, String lng, String place) {
     return Marker(
-      markerId: MarkerId(ltd),
+      markerId: MarkerId('$ltd$lng$place'),
       position: LatLng(
         double.parse(ltd),
         double.parse(lng),
@@ -93,6 +93,8 @@ class _SearchScreenState extends State<SearchScreen> {
           _towns.add(event['town']);
           _categories.add(event['category']);
         });
+        _towns.sort();
+        _categories.sort();
         setState(
           () {
             _allEvents = events;
@@ -157,15 +159,30 @@ class _SearchScreenState extends State<SearchScreen> {
                       ? ErrorPage(
                           'Aradığınız kriterlere uygun etkinlik bulunamadı...')
                       : Expanded(
-                          child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            itemCount: _filteredEvents.length,
-                            itemBuilder: (_, i) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                SearchCard(_filteredEvents[i], searchEvents),
-                              ],
-                            ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "${_filteredEvents.length} etkinlik bulundu...",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: _filteredEvents.length,
+                                  itemBuilder: (_, i) => Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      SearchCard(
+                                          _filteredEvents[i], searchEvents),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                 ],

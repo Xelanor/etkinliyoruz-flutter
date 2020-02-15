@@ -21,10 +21,10 @@ class _TabsScreenState extends State<TabsScreen> {
       'page': WillPopScope(child: FavoritesScreen(), onWillPop: () {}),
       'title': 'Favoriler'
     },
-    {
-      'page': WillPopScope(child: SettingsScreen(), onWillPop: () {}),
-      'title': 'Ayarlar'
-    },
+    // {
+    //   'page': WillPopScope(child: SettingsScreen(), onWillPop: () {}),
+    //   'title': 'Ayarlar'
+    // },
   ];
 
   int _selectedPageIndex = 0;
@@ -65,10 +65,10 @@ class _TabsScreenState extends State<TabsScreen> {
             icon: Icon(Icons.favorite),
             title: Text('Favorites'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-          )
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   title: Text('Settings'),
+          // )
         ],
       ),
     );

@@ -4,9 +4,10 @@ import '../../screens/search_screen.dart';
 import './event_card.dart';
 
 class EventsLine extends StatelessWidget {
+  final String searchText;
   final List events;
 
-  EventsLine(this.events);
+  EventsLine(this.searchText, this.events);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class EventsLine extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    SearchScreen("Atölye", 'category'),
+                                    SearchScreen(searchText, 'category'),
                               ),
                             );
                           },

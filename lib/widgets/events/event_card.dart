@@ -71,6 +71,7 @@ class EventCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               DateFormat('dd.MM.yyyy')
+                                  .add_Hm()
                                   .format(date(event['date'])),
                               style: TextStyle(fontSize: 10),
                               overflow: TextOverflow.ellipsis,
