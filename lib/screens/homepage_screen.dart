@@ -10,6 +10,8 @@ import '../widgets/homepage/homepage_card.dart';
 import '../widgets/homepage/homepage_text_search.dart';
 import '../widgets/homepage/homepage_category_search.dart';
 import '../widgets/homepage/homepage_district_search.dart';
+import '../widgets/events/events_category_title.dart';
+import '../widgets/events/events_line.dart';
 
 class HomepageScreen extends StatefulWidget {
   static const routeName = '/homepage-screen';
@@ -23,6 +25,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
   var _isLoading = false;
   var _eventCounts = [];
   var _towns = [];
+  var _allEvents = [];
 
   @override
   void initState() {
@@ -50,6 +53,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             _isLoading = false;
             _eventCounts = extractedData;
             _towns = _towns;
+            _allEvents = allEventsData;
           });
         });
       },
@@ -174,6 +178,22 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           'Müzikal/Gösteri',
                         )
                       ],
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: <Widget>[
+                          EventsCategoryTitle(
+                            'Yaklaşan Etkinlikler',
+                            Icons.calendar_today,
+                          ),
+                          EventsLine(
+                            'Bütün Etkinlikler',
+                            _allEvents.sublist(0, 7),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
