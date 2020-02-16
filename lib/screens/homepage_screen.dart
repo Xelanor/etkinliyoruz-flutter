@@ -22,6 +22,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
   var _isInit = true;
   var _isLoading = false;
   var _eventCounts = [];
+  var _towns = [];
 
   @override
   void initState() {
@@ -31,15 +32,25 @@ class _HomepageScreenState extends State<HomepageScreen> {
 
   void getMyStocks() {
     const url = 'http://34.67.211.44/api/events/multiple/count';
+    const allEventsUrl = 'http://34.67.211.44/api/';
     setState(() {
       _isLoading = true;
     });
     http.get(url).then(
       (response) {
-        final extractedData = json.decode(response.body) as List<dynamic>;
-        setState(() {
-          _isLoading = false;
-          _eventCounts = extractedData;
+        http.get(allEventsUrl).then((s_response) {
+          final extractedData = json.decode(response.body) as List<dynamic>;
+          final allEventsData = json.decode(s_response.body) as List<dynamic>;
+          _towns = allEventsData.map((event) {
+            return event['town'];
+          }).toList();
+          _towns = _towns.toSet().toList();
+          _towns.sort();
+          setState(() {
+            _isLoading = false;
+            _eventCounts = extractedData;
+            _towns = _towns;
+          });
         });
       },
     ).catchError((err) {
@@ -101,7 +112,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           ),
                           HomepageTextSearch(120),
                           HomepageCategorySearch(60),
-                          HomepageDistrictSearch(0),
+                          HomepageDistrictSearch(0, _towns),
                         ],
                       ),
                     ),

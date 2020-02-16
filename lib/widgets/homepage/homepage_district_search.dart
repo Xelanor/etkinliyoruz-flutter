@@ -4,8 +4,9 @@ import '../../screens/search_screen.dart';
 
 class HomepageDistrictSearch extends StatefulWidget {
   final double vertical;
+  final List towns;
 
-  HomepageDistrictSearch(this.vertical);
+  HomepageDistrictSearch(this.vertical, this.towns);
 
   @override
   _HomepageDistrictSearchState createState() => _HomepageDistrictSearchState();
@@ -51,26 +52,8 @@ class _HomepageDistrictSearchState extends State<HomepageDistrictSearch> {
                     );
                   },
                   hint: Text('İlçe Seçin...'),
-                  items: <String>[
-                    'Ataşehir',
-                    'Bahçelievler',
-                    'Bakırköy',
-                    'Başakşehir',
-                    'Beyoğlu',
-                    'Beşiktaş',
-                    'Esenyurt',
-                    'Kadıköy',
-                    'Konak',
-                    'Maltepe',
-                    'Nilüfer',
-                    'Sancaktepe',
-                    'Sarıyer',
-                    'Yenimahalle',
-                    'Çankaya',
-                    'Üsküdar',
-                    'İnegöl',
-                    'Şişli',
-                  ].map<DropdownMenuItem<String>>((String value) {
+                  items: <String>[...widget.towns]
+                      .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
