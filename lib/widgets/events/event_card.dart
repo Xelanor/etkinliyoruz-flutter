@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../screens/event_detail_screen.dart';
 import '../../presentation/money_icons_icons.dart';
@@ -39,9 +40,14 @@ class EventCard extends StatelessWidget {
                     child: Container(
                       height: 100,
                       width: 100,
-                      child: Image.network(
-                        event['image'],
+                      child: CachedNetworkImage(
                         fit: BoxFit.fill,
+                        imageUrl: event['image'],
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Image.asset(
+                            'assets/homepage-bg.png',
+                            fit: BoxFit.contain),
                       ),
                     ),
                   ),

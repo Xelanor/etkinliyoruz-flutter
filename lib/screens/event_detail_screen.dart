@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../helpers/db_helper.dart';
 import '../presentation/money_icons_icons.dart' show MoneyIcons;
@@ -108,9 +109,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   Container(
                     height: MediaQuery.of(context).size.height / 3.4,
                     width: double.infinity,
-                    child: Image.network(
-                      widget.event['image'],
+                    child: CachedNetworkImage(
                       fit: BoxFit.fill,
+                      imageUrl: widget.event['image'],
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Image.asset(
+                          'assets/homepage-bg.png',
+                          fit: BoxFit.contain),
                     ),
                   ),
                   Container(

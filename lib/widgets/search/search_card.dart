@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../screens/event_detail_screen.dart';
 import '../../presentation/money_icons_icons.dart';
@@ -41,9 +42,14 @@ class SearchCard extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.height / 4.4,
                       height: MediaQuery.of(context).size.height / 4.4,
-                      child: Image.network(
-                        event['image'],
+                      child: CachedNetworkImage(
                         fit: BoxFit.fill,
+                        imageUrl: event['image'],
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Image.asset(
+                            'assets/homepage-bg.png',
+                            fit: BoxFit.contain),
                       ),
                     ),
                   ),
