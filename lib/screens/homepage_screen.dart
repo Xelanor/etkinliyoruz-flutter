@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import '../screens/search_screen.dart';
 import '../widgets/homepage/homepage_card.dart';
 import '../widgets/homepage/homepage_text_search.dart';
 import '../widgets/homepage/homepage_category_search.dart';
@@ -108,6 +109,33 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       height: 10,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                          color: Color.fromRGBO(232, 108, 96, 1),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => SearchScreen(
+                                    "Bütün Etkinlikler", 'category'),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Tüm Etkinlikler',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         HomepageCard(
@@ -135,7 +163,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           'Müzikal/Gösteri',
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
