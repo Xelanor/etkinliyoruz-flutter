@@ -74,6 +74,13 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       infoWindow: InfoWindow(
         title: place,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SearchScreen(place, 'place'),
+            ),
+          );
+        },
       ),
       icon: BitmapDescriptor.defaultMarker,
     );

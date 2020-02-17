@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share/share.dart';
 
 import '../helpers/db_helper.dart';
 import '../presentation/money_icons_icons.dart' show MoneyIcons;
@@ -68,6 +69,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       appBar: AppBar(
         title: Text(widget.event['name']),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.share),
+            onPressed: () {
+              final RenderBox box = context.findRenderObject();
+              Share.share(
+                  '${widget.event['name']}\nTarih: ${DateFormat('dd.MM.yyyy').add_Hm().format(date(widget.event['date']))}\nKategori: ${widget.event['category']}\nYer: ${widget.event['place']}\nFiyat:${widget.event['eventPrice']}\nDetaylı Bilgi: ${widget.event['eventLink']}',
+                  subject: widget.event['category'],
+                  sharePositionOrigin:
+                      box.localToGlobal(Offset.zero) & box.size);
+            },
+          ),
           IconButton(
             icon: _isFavorite
                 ? Icon(Icons.favorite)

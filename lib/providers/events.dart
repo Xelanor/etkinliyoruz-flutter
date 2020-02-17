@@ -61,6 +61,7 @@ class Events with ChangeNotifier {
     const textSearchUrl = 'http://34.67.211.44/api/search/text';
     const categorySearchUrl = 'http://34.67.211.44/api/search/category';
     const townSearchUrl = 'http://34.67.211.44/api/search/town';
+    const placeSearchUrl = 'http://34.67.211.44/api/search/place';
     var url;
     if (type == "text") {
       url = textSearchUrl;
@@ -70,6 +71,9 @@ class Events with ChangeNotifier {
     }
     if (type == "town") {
       url = townSearchUrl;
+    }
+    if (type == "place") {
+      url = placeSearchUrl;
     }
     if (text == "Bütün Etkinlikler") {
       url = allSearchUrl;

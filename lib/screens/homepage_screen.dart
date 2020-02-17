@@ -121,7 +121,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,6 +150,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                         )
                       ],
                     ),
+                    SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

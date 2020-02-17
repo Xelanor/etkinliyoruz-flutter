@@ -42,7 +42,7 @@ class _HomepageTextSearchState extends State<HomepageTextSearch> {
               autofocus: false,
               controller: searchTextInputContoller,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 9),
+                contentPadding: EdgeInsets.only(bottom: 4),
                 prefixIcon: Container(
                   child: Icon(
                     Icons.search,
