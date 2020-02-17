@@ -24,9 +24,25 @@ class _HomepageTextSearchState extends State<HomepageTextSearch> {
         child: Card(
           child: Container(
             child: TextField(
+              onSubmitted: (_) {
+                if (searchTextInputContoller.text != null &&
+                    searchTextInputContoller.text != '') {
+                  var searchText = searchTextInputContoller.text;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SearchScreen(searchText, 'text'),
+                    ),
+                  );
+                  setState(() {
+                    // searchTextInputContoller.text = "";
+                  });
+                }
+              },
+              textAlignVertical: TextAlignVertical.center,
               autofocus: false,
               controller: searchTextInputContoller,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(top: 9),
                 prefixIcon: Container(
                   child: Icon(
                     Icons.search,
@@ -46,7 +62,7 @@ class _HomepageTextSearchState extends State<HomepageTextSearch> {
                         ),
                       );
                       setState(() {
-                        searchTextInputContoller.text = "";
+                        // searchTextInputContoller.text = "";
                       });
                     }
                   },
