@@ -120,7 +120,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         itemBuilder: (_, i) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SearchCard(_events[i], retreiveFavorites),
+                            SearchCard(
+                              _events[i],
+                              retreiveFavorites,
+                              isFavorite: true,
+                            ),
                           ],
                         ),
                       ),

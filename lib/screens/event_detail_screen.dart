@@ -81,9 +81,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             },
           ),
           IconButton(
-            icon: _isFavorite
-                ? Icon(Icons.favorite)
-                : Icon(Icons.favorite_border),
+            icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
             onPressed: () async {
               DBHelper.insert('user_favorites', {
                 '_id': widget.event['_id'],

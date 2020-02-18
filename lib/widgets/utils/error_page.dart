@@ -7,25 +7,25 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 15),
-        Icon(
-          Icons.error_outline,
-          size: 60,
-          color: Theme.of(context).primaryColor,
-        )
-      ],
+          Image.asset(
+            'assets/no-event.png',
+            fit: BoxFit.fitWidth,
+          ),
+        ],
+      ),
     );
   }
 }

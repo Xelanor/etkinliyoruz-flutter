@@ -62,7 +62,7 @@ class _TabsScreenState extends State<TabsScreen> {
             title: Text('Events'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.star),
             title: Text('Favorites'),
           ),
           // BottomNavigationBarItem(

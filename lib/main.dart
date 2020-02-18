@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Etkinliyoruz',
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(238, 17, 73, 1),
+          primaryColor: Color.fromRGBO(232, 90, 96, 1),
         ),
         // home: HomepageScreen(),
         initialRoute: '/',
