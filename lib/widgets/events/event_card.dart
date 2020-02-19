@@ -46,8 +46,8 @@ class EventCard extends StatelessWidget {
                         placeholder: (context, url) =>
                             CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Image.asset(
-                            'assets/homepage-bg.png',
-                            fit: BoxFit.contain),
+                            'assets/no-image.png',
+                            fit: BoxFit.cover),
                       ),
                     ),
                   ),

@@ -68,6 +68,7 @@ class SearchCard extends StatelessWidget {
         child: Icon(
           Icons.add,
           color: Colors.white,
+          size: 36,
         ),
         alignment: Alignment.centerRight,
         padding: EdgeInsets.only(right: 20, left: 20, bottom: 15, top: 15),
@@ -78,6 +79,7 @@ class SearchCard extends StatelessWidget {
         child: Icon(
           Icons.share,
           color: Colors.white,
+          size: 36,
         ),
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(right: 20, left: 20, bottom: 15, top: 15),
@@ -125,8 +127,8 @@ class SearchCard extends StatelessWidget {
                           placeholder: (context, url) =>
                               CircularProgressIndicator(),
                           errorWidget: (context, url, error) => Image.asset(
-                              'assets/homepage-bg.png',
-                              fit: BoxFit.contain),
+                              'assets/no-image.png',
+                              fit: BoxFit.cover),
                         ),
                       ),
                     ),
