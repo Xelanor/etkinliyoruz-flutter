@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:device_id/device_id.dart';
 
 import '../providers/events.dart';
 import '../widgets/search/search_card.dart';
@@ -26,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
   var _allEvents = [];
   var _filteredEvents = [];
   var _filter = {};
+  bool isAdmin;
 
   Set<Marker> _markers = {};
 
@@ -117,10 +119,15 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       searchEvents();
     }
+    var deviceId = await DeviceId.getID;
+    ["2cda060b694e23db", "b21d164725ce480a", "366707b12d879e78"]
+            .contains(deviceId)
+        ? isAdmin = true
+        : isAdmin = false;
     _isInit = false;
     super.didChangeDependencies();
   }
@@ -183,8 +190,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      SearchCard(
-                                          _filteredEvents[i], searchEvents),
+                                      SearchCard(_filteredEvents[i],
+                                          searchEvents, isAdmin),
                                     ],
                                   ),
                                 ),

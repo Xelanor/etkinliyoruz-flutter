@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,8 +13,10 @@ class SearchCard extends StatelessWidget {
   final Map event;
   final Function refreshScreen;
   final bool isFavorite;
+  final bool isAdmin;
 
-  SearchCard(this.event, this.refreshScreen, {this.isFavorite = false});
+  SearchCard(this.event, this.refreshScreen, this.isAdmin,
+      {this.isFavorite = false});
 
   DateTime get date {
     return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(event['date']);
@@ -22,33 +26,80 @@ class SearchCard extends StatelessWidget {
     return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
   }
 
-  void addFavorites(BuildContext ctx) {
-    DBHelper.insert('user_favorites', {
-      '_id': event['_id'],
-      'name': event['name'],
-      'description': event['description'],
-      'category': event['category'],
-      'date': event['date'],
-      'image': event['image'],
-      'eventAge': event['eventAge'],
-      'eventPrice': event['eventPrice'],
-      'eventLink': event['eventLink'],
-      'location': event['location'],
-      'place': event['place'],
-      'latitude': event['latitude'],
-      'longitude': event['longitude'],
-      'isFavorite': 1,
-    });
-    Scaffold.of(ctx).hideCurrentSnackBar();
-    Scaffold.of(ctx).showSnackBar(
-      SnackBar(
-        content: Text(
-          "${event['name']} favorilere eklendi",
-          // '${stock['shortName']} porföyüne eklendi!',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+  void deleteEvent(ctx) {
+    showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+              "${event['name']} etkinliğini gerçekten silmek istiyor musun?"),
+          actions: <Widget>[
+            RaisedButton(
+              color: Theme.of(context).colorScheme.primary,
+              child: Text("İptal"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                return false;
+              },
+            ),
+            FlatButton(
+              child: Text("Devam"),
+              onPressed: () {
+                var deleteUrl =
+                    'http://10.0.2.2:5000/api/deactivate/${event['_id']}';
+                DBHelper.deleteEvent(event['_id']);
+                http.post(deleteUrl);
+                Scaffold.of(ctx).hideCurrentSnackBar();
+                Scaffold.of(ctx).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "${event['name']} silindi",
+                      // '${stock['shortName']} porföyüne eklendi!',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+                Navigator.of(context).pop();
+                return true;
+              },
+            ),
+          ],
+        );
+      },
     );
+  }
+
+  void addFavorites(BuildContext ctx) {
+    if (isAdmin) {
+      deleteEvent(ctx);
+    } else {
+      DBHelper.insert('user_favorites', {
+        '_id': event['_id'],
+        'name': event['name'],
+        'description': event['description'],
+        'category': event['category'],
+        'date': event['date'],
+        'image': event['image'],
+        'eventAge': event['eventAge'],
+        'eventPrice': event['eventPrice'],
+        'eventLink': event['eventLink'],
+        'location': event['location'],
+        'place': event['place'],
+        'latitude': event['latitude'],
+        'longitude': event['longitude'],
+        'isFavorite': 1,
+      });
+      Scaffold.of(ctx).hideCurrentSnackBar();
+      Scaffold.of(ctx).showSnackBar(
+        SnackBar(
+          content: Text(
+            "${event['name']} favorilere eklendi",
+            // '${stock['shortName']} porföyüne eklendi!',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      );
+    }
   }
 
   void shareEvent(BuildContext ctx) {
@@ -64,9 +115,9 @@ class SearchCard extends StatelessWidget {
     return Dismissible(
       key: ValueKey('${event['name']}${event['date']}'),
       secondaryBackground: Container(
-        color: Colors.yellow[600],
+        color: isAdmin ? Colors.red[600] : Colors.yellow[600],
         child: Icon(
-          Icons.add,
+          isAdmin ? Icons.delete : Icons.add,
           color: Colors.white,
           size: 36,
         ),

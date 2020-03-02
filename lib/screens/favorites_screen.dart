@@ -123,6 +123,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             SearchCard(
                               _events[i],
                               retreiveFavorites,
+                              false,
                               isFavorite: true,
                             ),
                           ],

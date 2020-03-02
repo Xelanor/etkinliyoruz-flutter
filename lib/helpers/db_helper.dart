@@ -37,6 +37,11 @@ class DBHelper {
     return db.rawQuery('SELECT isFavorite FROM $table WHERE _id = "$id"');
   }
 
+  static Future<void> deleteEvent(id) async {
+    final db = await DBHelper.database();
+    return db.rawQuery('DELETE FROM user_favorites WHERE _id = "$id"');
+  }
+
   static Future<void> deleteDB() async {
     var databasesPath = await sql.getDatabasesPath();
     String pathws = path.join(databasesPath, 'favorites.db');

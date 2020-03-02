@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -81,7 +83,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             },
           ),
           IconButton(
-            icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+            icon: _isFavorite
+                ? Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  )
+                : Icon(Icons.star_border),
             onPressed: () async {
               DBHelper.insert('user_favorites', {
                 '_id': widget.event['_id'],
@@ -214,6 +221,12 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     height: 200,
                     padding: EdgeInsets.only(bottom: 8, left: 8, right: 8),
                     child: GoogleMap(
+                      gestureRecognizers:
+                          <Factory<OneSequenceGestureRecognizer>>[
+                        new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                        ),
+                      ].toSet(),
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
                         target: LatLng(

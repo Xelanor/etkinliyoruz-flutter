@@ -12,13 +12,20 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   final List<Map<String, Object>> _pages = [
-    {'page': HomepageScreen(), 'title': 'Etkinliyoruz'},
     {
-      'page': WillPopScope(child: EventsScreen(), onWillPop: () {}),
+      'page': SafeArea(
+        child: HomepageScreen(),
+      ),
+      'title': 'Etkinliyoruz'
+    },
+    {
+      'page': WillPopScope(
+          child: SafeArea(child: EventsScreen()), onWillPop: () {}),
       'title': 'Etkinlikler'
     },
     {
-      'page': WillPopScope(child: FavoritesScreen(), onWillPop: () {}),
+      'page': WillPopScope(
+          child: SafeArea(child: FavoritesScreen()), onWillPop: () {}),
       'title': 'Favoriler'
     },
     // {
@@ -39,9 +46,9 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(221, 221, 221, 1),
-      appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title']),
-      ),
+      // appBar: AppBar(
+      //   title: Text(_pages[_selectedPageIndex]['title']),
+      // ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
