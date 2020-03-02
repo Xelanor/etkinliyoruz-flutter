@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -6,6 +7,7 @@ import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:share/share.dart';
+import 'package:device_id/device_id.dart';
 
 import '../helpers/db_helper.dart';
 import '../presentation/money_icons_icons.dart' show MoneyIcons;
@@ -24,13 +26,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   var _isInit = true;
   var _isLoading = false;
   var _isFavorite = false;
+  var isAdmin;
 
   DateTime date(date) {
     return DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -56,6 +59,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         },
       );
     }
+    var deviceId = await DeviceId.getID;
+    ["2cda060b694e23db", "b21d164725ce480a", "366707b12d879e78"]
+            .contains(deviceId)
+        ? isAdmin = true
+        : isAdmin = false;
     _isInit = false;
     super.didChangeDependencies();
   }
@@ -65,12 +73,53 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     _controller.complete(controller);
   }
 
+  void deleteEvent(ctx) {
+    showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+              "${widget.event['name']} etkinliğini gerçekten silmek istiyor musun?"),
+          actions: <Widget>[
+            RaisedButton(
+              color: Theme.of(context).colorScheme.primary,
+              child: Text("İptal"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                return false;
+              },
+            ),
+            FlatButton(
+              child: Text("Devam"),
+              onPressed: () {
+                var deleteUrl =
+                    'http://10.0.2.2:5000/api/deactivate/${widget.event['_id']}';
+                DBHelper.deleteEvent(widget.event['_id']);
+                http.post(deleteUrl);
+                Navigator.of(context).pop();
+                return true;
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.event['name']),
         actions: <Widget>[
+          isAdmin
+              ? IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    deleteEvent(context);
+                  },
+                )
+              : Container(),
           IconButton(
             icon: Icon(Icons.share),
             onPressed: () {
