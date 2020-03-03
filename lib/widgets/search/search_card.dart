@@ -46,7 +46,7 @@ class SearchCard extends StatelessWidget {
               child: Text("Devam"),
               onPressed: () {
                 var deleteUrl =
-                    'http://10.0.2.2:5000/api/deactivate/${event['_id']}';
+                    'http://34.67.211.44/api/deactivate/${event['_id']}';
                 DBHelper.deleteEvent(event['_id']);
                 http.post(deleteUrl);
                 Scaffold.of(ctx).hideCurrentSnackBar();

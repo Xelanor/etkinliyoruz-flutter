@@ -93,7 +93,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               child: Text("Devam"),
               onPressed: () {
                 var deleteUrl =
-                    'http://10.0.2.2:5000/api/deactivate/${widget.event['_id']}';
+                    'http://34.67.211.44/api/deactivate/${widget.event['_id']}';
                 DBHelper.deleteEvent(widget.event['_id']);
                 http.post(deleteUrl);
                 Navigator.of(context).pop();
